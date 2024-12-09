@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block body %}
+    <div class="container_params">
+        <div style="text-align: center;">
+            <img src="/homologous_graphical_plot.png" alt="Homologous Logo" class="w-120 h-60">
+        </div>
+        <p>See publication doi.xxxxx</p>
+        <p> <b>ABSTRACT</b><br>
+            High-throughput DNA sequencing has revealed millions of single nucleotide variants (SNVs)
+            in the human genome, with a small fraction linked to disease. The effect of missense variants,
+            which alter the protein sequence, is particularly challenging to interpret due to the scarcity of
+            clinical annotations and experimental information. Current prediction tools use conservation
+            and structural information and have limited performance in predicting variant pathogenicity.
+            In this study, we explored the pathogenicity of homologous missense variants—variants in
+            equivalent positions across homologous proteins— focusing on proteins involved in
+            autosomal dominant diseases. By analyzing 2,976 pathogenic and 17,555 non-pathogenic
+            homologous variants, we showed that pathogenicity can be extrapolated between them with
+            95% accuracy or up to 98% accuracy for closer homologs. These findings expand the repertoire
+            of clinically annotated variants and offer a method for predicting the pathogenicity of
+            unannotated variants, enhancing genotype-phenotype correlations in rare genetic disorders
+            diagnosis.</p>
+        </div>
+        <a href="{{ url_for('pathogenicity_predictor') }}" class="go-back-button">Go Back</a>
+{% endblock %}

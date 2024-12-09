@@ -1,0 +1,267 @@
+{% extends "layout.html" %}
+{% block body %}
+
+    {% if invalid_aas %}
+            <p style="color:red; text-align: center; padding-bottom: 20px;"> {{ invalid_aas | safe }}</p>
+    {% else %}
+
+    <h1 style="text-align: center;">{{ form_data.prot_var }} in {{ form_data.gene_name }} gene</h1>
+
+    <main>
+
+        <div class="section" id="section1">
+            <h2>Variant information</h2>
+            <!-- If an error occured with the variant, show the error message -->
+            {% if error %}
+                {% if form_data.patho_prot == True %}
+                    <ul>
+                        <li><p> The protein (<a href="https://www.uniprot.org/uniprotkb/{{ form_data.uniprot_entry }}/entry" target="_blank">{{ form_data.uniprot_entry }}</a>) is involved in a <b>monogenic disease</b> (<a href="https://www.omim.org/entry/{{ form_data.omim }}" target="_blank">OMIM {{ form_data.omim }}</a>).</p></li>
+                    </ul>
+                {% else %}
+                    <ul>
+                        <li><p> The protein (<a href="https://www.uniprot.org/uniprotkb/{{ form_data.uniprot_entry }}/entry" target="_blank">{{ form_data.uniprot_entry }}</a>) is <b>NOT</b> involved in any monogenic disease.</p></li>
+                    </ul>
+                {% endif %}
+                <p style="color:red;">{{ error | replace('\n', '<br>')|safe }}</p>
+
+            {% else %}
+
+                
+
+                <!--  Check pathogenicity annotation and give the corresponding message  -->
+                {% if clin_conseq %}
+                    {% if form_data.patho_prot == True %}
+                        {% if clin_conseq == 'Uncertain consequence' %}
+                            <ul>
+                                <li><p> The damaging effects of this variant are <b>UNCERTAIN</b> (we cannot confirm whether {{ form_data.prot_var }} affects protein structure and/or function). </p></li>
+                                <li><p> The protein (<a href="https://www.uniprot.org/uniprotkb/{{ form_data.uniprot_entry }}/entry" target="_blank">{{ form_data.uniprot_entry }}</a>) is involved in a <b>monogenic disease</b> (<a href="https://www.omim.org/entry/{{ form_data.omim }}" target="_blank">OMIM {{ form_data.omim }}</a>).</p></li>
+                            </ul>
+                            <br>
+                            <p style="font-size: 18px;">This variant is predicted as <b style="color: orange; font-size: 24px;">AMBIGUOUS</b>.</p>
+                        {% else %}
+                            {% if clin_conseq == 'DAMAGING' %}
+                                <ul>
+                                    <li><p> The variant is <b>{{ clin_conseq }}</b> ({{ form_data.prot_var }} affects protein structure and/or function)  </p></li>
+                                    <li><p> The protein (<a href="https://www.uniprot.org/uniprotkb/{{ form_data.uniprot_entry }}/entry" target="_blank">{{ form_data.uniprot_entry }}</a>) is involved in a <b>monogenic disease</b> (<a href="https://www.omim.org/entry/{{ form_data.omim }}" target="_blank">OMIM {{ form_data.omim }}</a>).</p></li>
+                                </ul>
+                                <br>
+                                <p style="font-size: 18px;">This variant is predicted as <b style="color: red; font-size: 24px;">DISEASE-CAUSING</b>.</p>
+                            
+                            {% else %}
+                                <ul>
+                                    <li><p> The variant is <b>NOT DAMAGING</b> ({{ form_data.prot_var }} does not affect protein structure and/or function) </p></li>
+                                    <li><p> The protein (<a href="https://www.uniprot.org/uniprotkb/{{ form_data.uniprot_entry }}/entry" target="_blank">{{ form_data.uniprot_entry }}</a>) is involved in a <b>monogenic disease</b> (<a href="https://www.omim.org/entry/{{ form_data.omim }}" target="_blank">OMIM {{ form_data.omim }}</a>).</p></li>
+                                </ul>
+                                <br>
+                                <p style="font-size: 18px;">This variant is predicted as <b style="color: green; font-size: 24px;">NON-DISEASE-CAUSING</b>.</p>
+                            {% endif %}
+                        {% endif %}
+
+                    {% else %}
+                        {% if clin_conseq == 'Uncertain consequence' %}
+                            <ul>
+                                <li><p> The damaging effects of this variant are <b>UNCERTAIN</b> (we cannot confirm whether {{ form_data.prot_var }} affects protein structure and/or function). </p></li>
+                                <li><p> The protein (<a href="https://www.uniprot.org/uniprotkb/{{ form_data.uniprot_entry }}/entry" target="_blank">{{ form_data.uniprot_entry }}</a>) is <b>NOT</b> involved in any monogenic disease.</p></li>
+                            </ul>
+                            <br>
+                            <p style="font-size: 18px;">This variant is predicted as <b style="color: green; font-size: 24px;">NON-DISEASE-CAUSING</b>.</p>
+
+                        {% else %}
+                            {% if clin_conseq == 'DAMAGING' %}
+                                <ul>
+                                    <li><p> The variant is <b>{{ clin_conseq }}</b> ({{ form_data.prot_var }} affects protein structure and/or function)  </p></li>
+                                    <li><p> The protein (<a href="https://www.uniprot.org/uniprotkb/{{ form_data.uniprot_entry }}/entry" target="_blank">{{ form_data.uniprot_entry }}</a>) is <b>NOT</b> involved in any monogenic disease.</p></li>
+                                </ul>
+                                <br>
+                                <p style="font-size: 18px;">This variant is predicted as <b style="color: green; font-size: 24px;">NON-DISEASE-CAUSING</b>.</p>
+
+                            {% else %}
+                                <ul>
+                                    <li><p> The variant is <b>NOT DAMAGING</b> ({{ form_data.prot_var }} does not affect protein structure and/or function) </p></li>
+                                    <li><p> The protein (<a href="https://www.uniprot.org/uniprotkb/{{ form_data.uniprot_entry }}/entry" target="_blank">{{ form_data.uniprot_entry }}</a>) is <b>NOT</b> involved in any monogenic disease.</p></li>
+                                </ul>
+                                <p style="font-size: 18px;">This variant is predicted as <b style="color: green; font-size: 24px;">NON-DISEASE-CAUSING</b>.</p>
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+
+                {% else %}
+                    {% if form_data.patho_prot == True %}
+                        <ul>
+                            <li><p> The damaging effects of this variant are <b>UNCERTAIN</b> (we cannot confirm whether {{ form_data.prot_var }} affects protein structure and/or function). </p></li>
+                            <li><p> The protein (<a href="https://www.uniprot.org/uniprotkb/{{ form_data.uniprot_entry }}/entry" target="_blank">{{ form_data.uniprot_entry }}</a>) is involved in a <b>monogenic disease</b> (<a href="https://www.omim.org/entry/{{ form_data.omim }}" target="_blank">OMIM {{ form_data.omim }}</a>).</p></li>
+                        </ul>
+                        <br>
+                        <p style="font-size: 18px;">This variant is predicted as <b style="color: rgb(158, 144, 118); font-size: 24px;">UNCERTAIN</b>.</p>
+                    {% else %}
+                        <ul>
+                            <li><p> The damaging effects of this variant are <b>UNCERTAIN</b> (we cannot confirm whether {{ form_data.prot_var }} affects protein structure and/or function). </p></li>
+                            <li><p> The protein (<a href="https://www.uniprot.org/uniprotkb/{{ form_data.uniprot_entry }}/entry" target="_blank">{{ form_data.uniprot_entry }}</a>) is <b>NOT</b> involved in any monogenic disease.</p></li>
+                        </ul>
+                        <br>
+                        <p style="font-size: 18px;">This variant is predicted as <b style="color: green; font-size: 24px;">NON-DISEASE-CAUSING</b>.</p>
+
+                    {% endif %}
+
+
+                {% endif %}
+            {% endif %}
+
+        </div>
+        {% if not error %}
+            <div class="section" id="section2">
+                <h2>The following homologous pairs could be mapped:</h2>
+                
+                <!-- If we found pairs for this variant, show the table and prediction -->
+                {% if pairs_found %}
+                    <!-- <p>The following homologous pairs could be mapped:</p> -->
+                        <!-- <div class="dataTables_wrapper"> -->
+                            <!-- <h1>Pairs table</h1>   -->
+                            <table id="pairs_table" class="display">
+                                <thead>
+                                    <tr>
+                                        {% for col in pairs_found[0].keys() %}
+                                            <th>{{ col }}</th>
+                                        {% endfor %}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for row in pairs_found %}
+                                        <tr>
+                                            {% for cell in row.values() %}
+                                                <td>{{ cell | safe }}</td>
+                                            {% endfor %}
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        <!-- </div> -->
+                {% else %}
+                    <p>No strict nor homologous pairs found, i.e., no variants in equivalent position in homologous variants with exact or similar mutated amino acid were found.</p>
+                {% endif %}
+            
+            </div>
+
+            <div class="section" id="section3">
+                <h2>Annotations on ClinVar and gnomAD</h2>
+                <!-- If the variant is found in ClinVar or gnomAD, show the message and plot the table -->
+                <div id="annotation-content" data-fetch-url="{{ url_for('get_annotation_data') }}">
+                    <div class="spinner"></div>
+                    <p>Searching {{ form_data.prot_var }} in ClinVar and gnomAD for pathogenicity annotations...</p>
+                </div>
+            </div>
+
+        {% endif %}
+                    
+        <div class="section" id="section4">
+            <h2>Explore the available Pathogenic and Non-pathogenic variants (including homologous) for {{ form_data.gene_name }} in our interactive plot</h2>
+            <!-- <h2>See the {{ form_data.gene_name }} variants in our interactive plot</h2> -->
+
+            {% if plot_div %}
+            <!--
+            <div style="text-align: center;">
+                <h1>{{ form_data.uniprot_entry }} Align Table</h1>
+                <p>Here, we can observe the positions that can be mapped for protein: {{ form_data.uniprot_entry }}.</p>
+            </div>
+            -->
+            
+                <div class="plot-container" style="justify-content: center; align-items: center; margin-bottom: 20px;">  <!-- style="display: flex;"  does not show the 0 on the plot... -->
+                    <!-- Embed the plot -->
+                    {{ plot_div | safe }}
+                </div>
+
+                {% if align_type == 'CURATED' %}
+                    <p style="font-size: 14px;">*When available, we use expert-CURATED alignments for specific protein groups, which often encompass a broader portion of the protein sequence. This approach enables us to enhance our results by extrapolating the pathogenicity to a wider range of variants.</p>
+                {% elif align_type == 'Pfam SEED' %}
+                    <p style="font-size: 14px;">*The Pfam SEED alignments provided by <a href="https://www.ebi.ac.uk/interpro/entry/pfam/#table" target="_blank">InterPro</a> are mainly used, as they cover protein domains based on their conservation across the human proteome.</p>
+                {% elif align_type == 'Pfam FULL' %}
+                    <p style="font-size: 14px;">*The Pfam FULL alignments provided by <a href="https://www.ebi.ac.uk/interpro/entry/pfam/#table" target="_blank">InterPro</a> are used when no CURATED nor SEED alignments are available. They cover protein domains based on their conservation across the human proteome.</p>
+                {% endif %}
+                <p style="font-size: 14px;">We encourage the scientific community to share their expert-curated alignments with us to further strengthen our predictive capabilities.</p>
+            {% endif %}
+        </div>
+
+    {% endif %}
+    
+    </main>
+
+
+    <a href="{{ url_for('pathogenicity_predictor') }}" class="go-back-button">Go Back</a>
+
+
+    <script>
+        $(document).ready(function() {
+            // Initialize DataTable for #pairs_table without search bar
+            if ($('#pairs_table').length) {
+                $('#pairs_table').DataTable({
+                    paging: false,
+                    dom: 't' // Remove the search bar,   we can also put:  'lrtip' to show the message: Showing 1 to 10 of 1 entries.
+                });
+            }
+            
+        });
+    </script>
+
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const annotationContent = document.getElementById('annotation-content');
+    const fetchUrl = annotationContent.getAttribute('data-fetch-url');
+
+    fetch(fetchUrl)
+        .then(response => response.json())
+        .then(data => {
+            // Remove the spinner and message
+            annotationContent.innerHTML = '';
+
+            if (data.data) {
+                // Create a table to display the data
+                const table = document.createElement('table');
+                const headers = ['Gene', 'Clinical significance', 'Protein change', 'UniProt entry', 'RefSeq NM code', 'Database'];
+                const thead = document.createElement('thead');
+                const tbody = document.createElement('tbody');
+
+                // Create table headers
+                const headerRow = document.createElement('tr');
+                headers.forEach(header => {
+                    const th = document.createElement('th');
+                    th.textContent = header;
+                    headerRow.appendChild(th);
+                });
+                thead.appendChild(headerRow);
+
+                // Create table rows
+                data.data.forEach(row => {
+                    const tr = document.createElement('tr');
+                    headers.forEach(header => {
+                        const td = document.createElement('td');
+                        td.innerHTML = row[header];  // Use innerHTML to render links correctly
+                        tr.appendChild(td);
+                    });
+                    tbody.appendChild(tr);
+                });
+
+                table.appendChild(thead);
+                table.appendChild(tbody);
+                annotationContent.appendChild(table);
+            } else {
+                // Display the message if no data is available
+                const message = document.createElement('p');
+                message.textContent = data.message;
+                annotationContent.appendChild(message);
+            }
+
+            // Show the content after data is ready
+            annotationContent.classList.remove('hidden');
+        })
+        .catch(error => {
+            console.error('Error fetching annotation data:', error);
+            annotationContent.innerHTML = '<p>Error fetching annotation data. Please try again later.</p>';
+            annotationContent.classList.remove('hidden');
+        });
+});
+
+    </script>
+    
+
+{% endblock %}

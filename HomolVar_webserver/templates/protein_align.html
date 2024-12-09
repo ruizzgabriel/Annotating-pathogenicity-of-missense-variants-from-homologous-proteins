@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+{% block body %}
+
+    <h1 style="text-align: center;">{{ form_data.gene_name }} gene</h1>
+
+    <main>
+    
+        <div class="section" id="section1">
+            <h2>Protein information</h2>
+
+            {% if form_data.uniprot_entry %}
+                <p> Check UniProt entry: <a href="https://www.uniprot.org/uniprotkb/{{ form_data.uniprot_entry }}/entry" target="_blank">{{ form_data.uniprot_entry }}</a></p>
+                <p>{{ form_data.output_user | safe }}</p>
+            {% else %}
+                <p>{{ form_data.output_user }}</p>
+            {% endif %}
+            <!-- <p>Check the positions that can be mapped: <a href="/HomolVar/{{ form_data.uniprot_entry }}"> Alignment viewer for {{ form_data.uniprot_entry }}</a></p> -->
+
+        </div>
+        
+        <div class="section" id="section4">
+            <h2>See the available Pathogenic and Non-pathogenic variants for {{ form_data.gene_name }} in our interactive plot</h2>
+            <!-- If an error occured with the variant, show the error message -->
+            {% if error %}
+                <p style="color:red;">{{ error | replace('\n', '<br>')|safe }}</p>
+            {% endif %}
+            
+            {% if plot_div %}
+            <!--
+            <div style="text-align: center;">
+                <h1>{{ form_data.uniprot_entry }} Align Table</h1>
+                <p>Here, we can observe the positions that can be mapped for protein: {{ form_data.uniprot_entry }}.</p>
+            </div>
+            -->
+            
+                <div class="plot-container" style="justify-content: center; align-items: center; margin-bottom: 20px;">  <!-- style="display: flex;"  does not show the 0 on the plot... -->
+                    <!-- Embed the plot -->
+                    {{ plot_div | safe }}
+                </div>
+                {% if align_type == 'CURATED' %}
+                    <p style="font-size: 14px;">*When available, we use expert-CURATED alignments for specific protein groups, which often encompass a broader portion of the protein sequence. This approach enables us to enhance our results by extrapolating the pathogenicity to a wider range of variants.</p>
+                {% elif align_type == 'Pfam SEED' %}
+                    <p style="font-size: 14px;">*The Pfam SEED alignments provided by <a href="https://www.ebi.ac.uk/interpro/entry/pfam/#table" target="_blank">InterPro</a> are mainly used, as they cover protein domains based on their conservation across the human proteome.</p>
+                {% elif align_type == 'Pfam FULL' %}
+                    <p style="font-size: 14px;">*The Pfam FULL alignments provided by <a href="https://www.ebi.ac.uk/interpro/entry/pfam/#table" target="_blank">InterPro</a> are used when no CURATED nor SEED alignments are available. They cover protein domains based on their conservation across the human proteome.</p>
+                {% endif %}
+                <p style="font-size: 14px;">We encourage the scientific community to share their expert-curated alignments with us to further strengthen our predictive capabilities.</p>
+            {% endif %}
+        </div>
+        
+    </main>
+        
+
+    <br>
+    
+<a href="{{ url_for('pathogenicity_predictor') }}" class="go-back-button">Go Back</a>
+
+{% endblock %}

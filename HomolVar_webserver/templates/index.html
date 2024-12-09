@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<div class="main-content">
+    
+    <section class="options">
+        <div class="cards">
+            <a href="{{ url_for('pathogenicity_predictor') }}" class="card">
+                <h3>Missense variant pathogenicity predictor</h3>
+                <p>Annotate the pathogenicity of missense variants from homologous proteins</p>
+            </a>
+            <a href="{{ url_for('about')}}" class="card">
+                <h3>About</h3>
+                <p>See our publication</p>
+            </a>
+            <!-- <a href="{#{ url_for('homologous_vars_db') }#}" class="card">
+                <h3>Homologous variants Database</h3>
+                <p>Explore the database.</p>
+            </a> -->
+        </div>
+        <img src="{{ url_for('static', filename='homologous_graphical_plot.png') }}" alt="Homologous Logo" class="w-120 h-60">
+    </section>
+</div>
+
+{% endblock %}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HomolVar</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='results_styles.css') }}">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="{{ url_for('static', filename='functions.js') }}"></script>
+    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <!-- Your custom JavaScript -->
+    <script type="text/javascript" src="{{ url_for('static', filename='annotationLoader.js') }}"></script>
+
+    <!-- Include Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+
+</head>
+<body class="w3-light-grey">
+    <!-- Include header and footer from separate files -->
+    {% include 'header.html' %}
+    
+    <div class="container">
+        <!-- Main content -->
+        <div class="w3-row">
+            <div class="w3-col c8 s12">
+                <!-- Blog entry -->
+                <div class="w3-card-4 w3-margin w3-white">
+                    <div class="w3-container">
+                        {% block body %}{% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    {% include 'footer.html' %}
+</body>
+</html>

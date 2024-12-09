@@ -1,0 +1,336 @@
+/* General styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container_params {
+    max-width: 50%;
+    margin:  20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    position: relative; 
+}
+
+
+.container {
+    width: 90%; /* Set a maximum width for the container */
+    margin: 20px auto; /* Center the container with 20px top/bottom margin */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    position: relative; 
+    display: flex;
+    align-items: center;
+}
+
+
+/* Main content styles */
+.main-content {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+.intro-text {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+.options {
+    margin-top: 40px;
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.card {
+    flex-basis: calc(33% - 20px);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+.card h3 {
+    color: var(--accent-color);
+}
+
+.card p {
+    font-size: 0.9em;
+}
+
+@media (max-width: 768px) {
+    .card {
+        flex-basis: calc(50% - 20px);
+    }
+}
+
+@media (max-width: 480px) {
+    .card {
+        flex-basis: 100%;
+    }
+}
+
+/* Header styles */
+
+#preloader {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    /* background-color: #fff; */
+    background: #fff url_for('static', filename='6i35_preloader.gif') no-repeat center center;
+}
+
+header {
+    background-color: rgb(96, 165, 250); 
+    color: #fff; /* Text color */
+    padding: 20px; /* Padding around content */
+    text-align: center; /* Center-align text */
+}
+
+header a {
+    color: #fff; /* Link color */
+    text-decoration: none; /* Remove underlines */
+    margin: 0 10px; /* Spacing between links */
+}
+
+header a:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
+
+.parameter-group-header {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+.parameter-group.execute {
+    /* margin-right:10%; */
+    text-align: left; /* Reset text alignment for inner content */
+    background-color: #f9f9f9; /* Example background color */
+    /* display: inline-block; */ /* Make it inline-block to center it */
+    padding: 10px; /* Adjust padding as needed */
+    border-radius: 5px; /* Example border radius */
+    width: 27%;
+}
+
+.parameter-group.execute {
+    float: right;
+}
+
+
+label {
+    font-weight: bold;
+    color: #333;
+}
+
+input[type="text"], input[type="number"], input[type="email"] {
+    width: 60%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    padding: 12px 40px; /* Increase padding for a longer button */
+    background-color: #007bff; /* Primary background color */
+    background-image: linear-gradient(45deg, #0056b3, #007bff); /* Add a gradient for depth */
+    color: white; /* Text color */
+    border: none; /* Remove border */
+    border-radius: 8px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 18px; /* Slightly larger font */
+    font-weight: bold; /* Make the text bold */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+    align-self: center; /* Center-align if using flexbox */
+    text-align: center; /* Center text */
+}
+
+/* Hover effect */
+input[type="submit"]:hover {
+    background-color: #0056b3; /* Darker background on hover */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Slightly stronger shadow */
+}
+
+
+/* Styling for the "Go Back" link */
+a.go-back-button {
+    padding: 12px 40px; /* Increase padding for a longer button */
+    background-color: #6c757d; /* Primary background color */
+    background-image: linear-gradient(45deg, #5a6268, #6c757d); /* Gradient for depth */
+    color: white; /* Text color */
+    border: none; /* Remove border */
+    border-radius: 8px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 18px; /* Slightly larger font */
+    font-weight: bold; /* Make the text bold */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+    align-self: center; /* Center-align if using flexbox */
+    margin-left: 45%; /* Adjust margin */
+    text-align: center; /* Center text */
+}
+
+/* Hover effect for the "Go Back" link */
+a.go-back-button:hover {
+    background-color: #5a6268; /* Darker background on hover */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+}
+
+/* Footer styles */ 
+/* Set HTML and body to take full height */
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Flex container to push footer to the bottom */
+.content {
+    flex: 1;
+}
+
+/* CSS for the footer */
+footer {
+    background-color: rgb(96, 165, 250); 
+    color: #fff; 
+    padding: 20px; 
+    text-align: center;
+    margin-top: auto; /* Ensures footer stays at bottom */
+}
+
+/* Style for the footer links */
+footer a {
+    color: #fff; 
+    text-decoration: none; 
+    margin: 0 10px;
+}
+
+footer a:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
+/* layout.html */
+/* Flexbox setup */
+    html, body {
+        height: 100%;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .container {
+        flex: 1; /* This allows the container to take up remaining space */
+        padding: 20px; /* Optional: add some padding for better spacing */
+        padding-bottom: 40px;
+    }
+
+    .w3-row {
+        width: 100%;
+    }
+
+    .w3-col {
+        width: 100%;
+    }
+
+    /* Ensure content cards are displayed properly */
+    .w3-card-4 {
+        width: 100%;
+    }
+
+/* user_parameters.html */
+.inline-inputs {
+    text-align: center;
+    /* display: flex; */
+    /* justify-content: space-between; */ /* Distributes space evenly */
+    gap: 10px; /* Space between inputs */
+}
+
+input[class="prot_variant"], input[type="number"] {
+    flex: 1; /* Allows inputs to grow equally */
+    max-width: 120px; /* Sets a maximum width for the inputs */
+    padding: 5px;
+    text-align: center; /* Center aligns text within the input */
+}
+
+/* protein_align.html */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+}
+th {
+    background-color: #f2f2f2;
+}
+
+/* database_homologous_vars.html */
+body {
+    margin: 0;
+    padding: 0;
+    /* font-family: Arial, sans-serif; */
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+th {
+    background-color: rgb(151, 195, 249);
+    color: white;
+    text-align: left;
+}
+h3 {
+    background-color: rgb(151, 195, 249);  /* Change the background color */
+    color: white;  /* Change the text color */
+    font-family: Arial, sans-serif;  /* Change the font */
+    font-size: 20px;  /* Increase the font size */
+    padding: 15px;  /* Increase the padding */
+    text-align: center;  /* Align the text to the left */
+    width: 80%;
+    margin: 0 auto;  /* This will center the h3 element */
+}
+thead input {
+    padding: 6px;
+    box-sizing: border-box;
+}
+.dataTables_wrapper {
+    min-height: 70%;  /* 100% of the viewport height */
+    width: 90%;
+    margin: 0 auto;
+    overflow-x: auto;
+}

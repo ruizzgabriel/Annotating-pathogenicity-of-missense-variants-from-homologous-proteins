@@ -1,0 +1,140 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.section {
+    width: 80%; /* Adjust width as needed */
+    background-color: #f8f8f8;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin: 20px 0;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.section:hover {
+    transform: translateY(-5px);
+}
+
+h2 {
+    text-align: center;
+    color: #003366;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+table, th, td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background-color: #003366;
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .section {
+        width: 95%;
+    }
+
+    header, footer {
+        padding: 15px;
+    }
+
+}
+
+
+/* Styling for the "Go Back" link */
+a.go-back-button {
+    padding: 12px 40px; /* Increase padding for a longer button */
+    background-color: #6c757d; /* Primary background color */
+    background-image: linear-gradient(45deg, #5a6268, #6c757d); /* Gradient for depth */
+    color: white; /* Text color */
+    border: none; /* Remove border */
+    border-radius: 8px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 18px; /* Slightly larger font */
+    font-weight: bold; /* Make the text bold */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+    align-self: center; /* Center-align if using flexbox */
+    margin-left: 45%; /* Adjust margin */
+    text-align: center; /* Center text */
+    text-decoration: none; /* Remove underline */
+}
+
+/* Hover effect for the "Go Back" link */
+a.go-back-button:hover {
+    background-color: #5a6268; /* Darker background on hover */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+}
+
+#slow-data-content p {
+    font-style: italic;
+    color: gray;
+}
+
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #003366;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+#annotation-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#annotation-content p {
+    font-style: italic;
+    color: gray;
+    margin-top: 10px;
+}
+
+.plot-container {
+    width: 100%;
+    max-width: 100%;
+    overflow: auto;  /*  Ensure overflow is handled */
+}
+
+.plot-container div {
+    height: auto;
+}
+
+
+.plot-container iframe {
+    width: 100%;
+    height: auto;
+}
+

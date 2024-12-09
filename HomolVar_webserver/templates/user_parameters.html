@@ -1,0 +1,82 @@
+{% extends "layout.html" %}
+{% block body %}
+    <div class="container_params">
+        <div class="form">
+            <form action="{{ url_for('pathogenicity_predictor') }}" method="POST">
+
+                <div class="parameter-group">
+                    
+                    <h2 style="text-align: center;"><b>Missense variants pathogenicity predictor</b></h2>
+
+                    <div>
+                        <!-- UniProt input field -->
+                        <div style="text-align: center;" id="uniprot_code">
+                            <br>
+                            <label>Write GENE NAME, UNIPROT ENTRY or NCBI REFSEQ:</label><br>
+                            <input type="text" id="protein_uniprot" name="protein" value="{{ form_data.uniprot_code|default('') }}" placeholder="e.g. GRIN1, Q05586, NP_015566" list="change_list" required>
+                            <!-- Warning message for required input -->
+                            <!-- <span id="variant_input1_warning" style="color: red; display: none;">*This field is required</span> -->
+                        </div>
+    
+                        <datalist id="change_list">
+                            <!-- Options for amino acid changes -->
+                            {% for name in valid_entries_l %}
+                                <option class="" value="{{ name }}">{{ change }}</option>
+                            {% endfor %}
+                        </datalist>
+    
+                    </div>
+
+                    <p style="text-align: center;"><b>Indicate the protein variant (optional):</b></p>
+                    <p style="text-align: center;" class="inline-inputs">
+                        
+                        <span>p.</span>
+                        <input class="prot_variant" type="text" name="i_aa" value="{{ form_data.i_aa|default('') }}" placeholder="e.g. Gly" list="aa-selection">
+                        <input class="prot_variant" type="number" name="pos" value="{{ form_data.pos|default('') }}" min="1" placeholder="e.g. 618" >
+                        <input class="prot_variant" type="text" name="f_aa" value="{{ form_data.f_aa|default('') }}" placeholder="e.g. Ile" list="aa-selection">
+                    </p>
+
+                    <datalist name="list_aas" id="aa-selection" required>
+                        <option value="">Select an amino acid</option>
+                        <option value="Ala">Ala</option>
+                        <option value="Arg">Arg</option>
+                        <option value="Asn">Asn</option>
+                        <option value="Asp">Asp</option>
+                        <option value="Cys">Cys</option>
+                        <option value="Glu">Glu</option>
+                        <option value="Gln">Gln</option>
+                        <option value="Gly">Gly</option>
+                        <option value="His">His</option>
+                        <option value="Ile">Ile</option>
+                        <option value="Leu">Leu</option>
+                        <option value="Lys">Lys</option>
+                        <option value="Met">Met</option>
+                        <option value="Phe">Phe</option>
+                        <option value="Pro">Pro</option>
+                        <option value="Ser">Ser</option>
+                        <option value="Thr">Thr</option>
+                        <option value="Trp">Trp</option>
+                        <option value="Tyr">Tyr</option>
+                        <option value="Val">Val</option>
+                    </select>
+                </div>
+
+                <div style="display: flex; justify-content: center; margin: 20px 0;">
+                    <input type="submit" value="Submit">
+                </div>
+
+                <!-- <input style="text-align: center;" type="submit" name="submit" value="Run"> -->
+                <!-- <button type="button" id="downloadReport">Download Report</button> -->
+
+            </form>
+        </div>
+    </div>
+
+    {% if error %}
+    <div>
+        <p>{{ error|safe }}</p>
+        <p> {{ form_data|safe }} </p>
+    </div>
+    {% endif %}
+
+{% endblock %}
